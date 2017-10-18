@@ -1,0 +1,190 @@
+{
+	label : intent
+	species : PoisonPin
+	types : [ Poison ]
+	abilities : [ 110 122 59 ]
+	genderThreshold : 0
+	catchRate : 235
+	eggGroups : [ Monster Field ]
+	hatchCounter : 20
+	height : 0.500000
+	weight : 9.000000
+	baseExpYield : 55
+	baseFriendship : 70
+	expGroup : 4
+	evYield : [ 0 1 0 0 0 0 ]
+	bodyStyle : "Pokemon with a quadruped body"
+	color : Purple
+	baseStats : [ 46 57 40 40 40 50 ]
+}
+{
+	label : philosophical
+	species : PoisonPin
+	types : [ Poison ]
+	abilities : [ 110 122 59 ]
+	genderThreshold : 0
+	catchRate : 120
+	eggGroups : [ Monster Field ]
+	hatchCounter : 20
+	height : 0.900000
+	weight : 19.500000
+	baseExpYield : 128
+	baseFriendship : 70
+	expGroup : 4
+	evYield : [ 0 2 0 0 0 0 ]
+	bodyStyle : "Pokemon with a quadruped body"
+	color : Purple
+	baseStats : [ 61 72 57 55 55 65 ]
+}
+{
+	label : appreciative
+	species : Drill
+	types : [ Poison Ground ]
+	abilities : [ 110 122 135 ]
+	genderThreshold : 0
+	catchRate : 45
+	eggGroups : [ Monster Field ]
+	hatchCounter : 20
+	height : 1.400000
+	weight : 62.000000
+	baseExpYield : 223
+	baseFriendship : 70
+	expGroup : 4
+	evYield : [ 0 3 0 0 0 0 ]
+	bodyStyle : "Pokemon with a bipedal tailed form"
+	color : Purple
+	baseStats : [ 81 102 77 85 75 85 ]
+}
+{
+	label : paternalistic
+	species : SeaLion
+	types : [ Water ]
+	abilities : [ 168 60 62 ]
+	genderThreshold : 127
+	catchRate : 190
+	eggGroups : [ Water1 Field ]
+	hatchCounter : 20
+	height : 1.100000
+	weight : 90.000000
+	baseExpYield : 65
+	baseFriendship : 70
+	expGroup : 2
+	evYield : [ 0 0 0 0 1 0 ]
+	bodyStyle : "Pokemon with fins"
+	color : White
+	baseStats : [ 65 45 55 45 70 45 ]
+}
+{
+	label : belated
+	species : SeaLion
+	types : [ Water Ice ]
+	abilities : [ 168 60 62 ]
+	genderThreshold : 127
+	catchRate : 75
+	eggGroups : [ Water1 Field ]
+	hatchCounter : 20
+	height : 1.700000
+	weight : 120.000000
+	baseExpYield : 166
+	baseFriendship : 70
+	expGroup : 2
+	evYield : [ 0 0 0 0 2 0 ]
+	bodyStyle : "Pokemon with fins"
+	color : White
+	baseStats : [ 90 70 80 70 95 70 ]
+}
+{
+	label : difficult
+	species : SeaSlug
+	types : [ Water ]
+	abilities : [ 153 154 126 ]
+	genderThreshold : 127
+	catchRate : 190
+	eggGroups : [ Water1 Amorphous ]
+	hatchCounter : 20
+	height : 0.300000
+	weight : 6.300000
+	baseExpYield : 65
+	baseFriendship : 70
+	expGroup : 2
+	evYield : [ 1 0 0 0 0 0 ]
+	bodyStyle : "Pokemon with serpentine bodies"
+	color : Purple
+	baseStats : [ 76 48 48 57 62 34 ]
+}
+{
+	label : scrawny
+	species : SeaSlug
+	types : [ Water Ground ]
+	abilities : [ 153 154 126 ]
+	genderThreshold : 127
+	catchRate : 75
+	eggGroups : [ Water1 Amorphous ]
+	hatchCounter : 20
+	height : 0.900000
+	weight : 29.900000
+	baseExpYield : 166
+	baseFriendship : 70
+	expGroup : 2
+	evYield : [ 2 0 0 0 0 0 ]
+	bodyStyle : "Pokemon with serpentine bodies"
+	color : Purple
+	baseStats : [ 111 83 68 92 82 39 ]
+}
+{
+	label : defeated
+	species : WingFish
+	types : [ Water ]
+	abilities : [ 161 154 183 ]
+	genderThreshold : 127
+	catchRate : 190
+	eggGroups : [ Water2 ]
+	hatchCounter : 20
+	height : 0.400000
+	weight : 7.000000
+	baseExpYield : 66
+	baseFriendship : 70
+	expGroup : 5
+	evYield : [ 0 0 0 0 0 1 ]
+	bodyStyle : "Pokemon with fins"
+	color : Blue
+	baseStats : [ 49 49 56 49 61 66 ]
+}
+{
+	label : quick
+	species : Neon
+	types : [ Water ]
+	abilities : [ 161 154 183 ]
+	genderThreshold : 127
+	catchRate : 75
+	eggGroups : [ Water2 ]
+	hatchCounter : 20
+	height : 1.200000
+	weight : 24.000000
+	baseExpYield : 161
+	baseFriendship : 70
+	expGroup : 5
+	evYield : [ 0 0 0 0 0 2 ]
+	bodyStyle : "Pokemon with fins"
+	color : Blue
+	baseStats : [ 69 69 76 69 86 91 ]
+}
+{
+	label : curious
+	species : Hostile
+	types : [ Water ]
+	abilities : [ 119 1 90 ]
+	genderThreshold : 127
+	catchRate : 25
+	eggGroups : [ Water2 ]
+	hatchCounter : 40
+	height : 1.000000
+	weight : 18.000000
+	baseExpYield : 161
+	baseFriendship : 70
+	expGroup : 2
+	evYield : [ 0 0 0 0 0 2 ]
+	bodyStyle : "Pokemon with fins"
+	color : Green
+	baseStats : [ 70 92 65 80 55 98 ]
+}

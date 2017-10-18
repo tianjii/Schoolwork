@@ -1,0 +1,480 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+
+const std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+
+void printboard(int row, int col, std::vector<std::vector<char> >&board, std::ostream &outfile) {
+	outfile<<"Board:"<<std::endl;
+	for (unsigned int i = 0; i < row; i++) {
+		outfile<<"  ";
+		for (unsigned int j = 0; j < col; j++) {
+			outfile<<board[i][j];
+		}
+		outfile<<std::endl;
+	}
+}
+
+bool insols(std::vector<std::vector<char> >&board, std::vector<std::vector<std::vector<char> > > &sols) {
+	for (unsigned int i = 0; i < sols.size(); i++) {
+		if (board == sols[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool notfound(int row, int col, std::vector<std::vector<char> >board, 
+	std::vector<std::string> &minus, std::vector<std::vector<std::vector<char> > > &sols, bool &findone) {
+	std::vector<std::vector<char> > newboard;
+	for (int y = 0; y < row; y++) {
+ 			for (int x = 0; x < col; x++) {
+ 		if (board[y][x] == '.') {
+ 			for (unsigned int i = 0; i < alphabet.size(); i++) {
+ 				if (findone == true && sols.size() == 1) {
+ 					return false;
+ 				}
+ 				newboard = board;
+ 				newboard[y][x] = alphabet[i];
+ 				if (notfound(row,col, newboard, minus, sols, findone)) {
+ 					if (insols(newboard, sols)) {
+ 					sols.push_back(newboard);
+ 					std::cout<<"FOUND"<<std::endl;
+ 					std::cout<<sols.size()<<std::endl;
+ 	
+ 				}
+ 				}
+ 					
+ 				}
+ 				return false;
+ 			}
+ 		}
+ 	} 
+
+	for (unsigned int i = 0; i < minus.size(); i++) {
+		std::string word = minus[i];
+		int size = word.size();
+		for (int y = 0; y < row; y++) {
+ 			for (int x = 0; x < col; x++) {
+
+ 		if (board[y][x] == word[0]) {
+ 		//Divide up Board
+		bool left = true;
+		bool right = true;
+		bool up = true;
+		bool down = true;
+		//There has to be an easier way to do this
+
+		if (x - (size-1) < 0) {
+			left = false; }
+		if (x + (size-1) > col-1) {
+			right = false; }
+		if (y - (size-1) < 0) {
+			up = false; }
+		if (y + (size-1) > row-1) {
+		down = false; }
+
+		bool valid;
+
+		if (left) {
+			valid = true;
+			for (unsigned int i = 0; i < word.size(); i++) {
+				if (board[y][x-i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+
+			if (valid)
+				return false;
+
+			if (up) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y-i][x-i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+
+			if (valid)
+				return false;
+
+			}
+
+			if (down) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y+i][x-i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			}
+
+
+		} //if left
+
+		if (right) {
+			valid = true;
+			for (unsigned int i = 0; i < word.size(); i++) {
+				if (board[y][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			if (up) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y-i][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			}
+
+			if (down) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y+i][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			}
+
+
+		} //if right
+
+		if (up) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y-i][x] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			}
+
+		if (down) {
+				valid = true;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (board[y+i][x] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				return false;
+
+			}
+ 		}
+	}
+	
+} 
+
+}
+
+return true;
+
+}
+
+void setboard(int row, int col, std::vector<std::vector<char> > &board,
+ std::vector<std::string> &plus, std::vector<std::string> &minus, 
+ std::vector<std::vector<std::vector<char> > > &sols, int wordnum, bool &findone) {
+	if (wordnum == plus.size()) {
+		if (notfound(row, col, board, minus, sols, findone)) {
+			std::vector<std::vector<char> > newboard = board;
+			if (insols(board,sols)) {
+			sols.push_back(newboard); }
+		}
+		return;
+	}
+
+ 	std::string word = plus[wordnum];
+ 	int size = word.size();
+ 	for (int y = 0; y < row; y++) {
+ 		for (int x = 0; x < col; x++) {
+ 		if (board[y][x] == word[0] || board[y][x] == '.') {
+ 		//Divide up Board
+		std::vector<std::vector<char> > newboard;
+		bool left = true;
+		bool right = true;
+		bool up = true;
+		bool down = true;
+		//There has to be an easier way to do this
+
+		if (x - (size-1) < 0) {
+			left = false; }
+		if (x + (size-1) > col-1) {
+			right = false; }
+		if (y - (size-1) < 0) {
+			up = false; }
+		if (y + (size-1) > row-1) {
+		down = false; }
+
+		bool valid;
+
+		if (left ) {
+			if (findone == true && sols.size() >= 1) {
+				return;
+			}
+			valid = true;
+			newboard = board;
+			for (unsigned int i = 0; i < word.size(); i++) {
+				if (newboard[y][x-i] == '.') {
+				newboard[y][x-i] = word[i];
+				}
+				else if (newboard[y][x-i] != word[i]) {
+					valid = false; 
+					break;}
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			if (up) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+				}
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y-i][x-i] == '.') {
+						newboard[y-i][x-i] = word[i];
+					}
+					else if (newboard[y-i][x-i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+
+			if (down) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+			}	
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y+i][x-i] == '.') {
+						newboard[y+i][x-i] = word[i];
+					}
+				else if (newboard[y+i][x-i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+
+
+		} //if left
+
+		if (right) {
+			if (findone == true && sols.size() >= 1) {
+				return;
+			}
+			valid = true;
+			newboard = board;
+			for (unsigned int i = 0; i < word.size(); i++) {
+				if (newboard[y][x+i] == '.') {
+				newboard[y][x+i] = word[i];
+				}
+				else if (newboard[y][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			if (up) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+				}
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y-i][x+i] == '.') {
+						newboard[y-i][x+i] = word[i];
+					}
+				else if (newboard[y-i][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+
+			if (down) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+				}
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y+i][x+i] == '.') {
+						newboard[y+i][x+i] = word[i];
+					}
+				else if (newboard[y+i][x+i] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+
+
+		} //if right
+
+		if (up) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+				}
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y-i][x] == '.') {
+						newboard[y-i][x] = word[i];
+					}
+				else if (newboard[y-i][x] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+
+			if (down) {
+				if (findone == true && sols.size() >= 1) {
+				return;
+				}
+				valid = true;
+				newboard = board;
+				for (unsigned int i = 0; i < word.size(); i++) {
+					if (newboard[y+i][x] == '.') {
+						newboard[y+i][x] = word[i];
+					}
+				else if (newboard[y+i][x] != word[i]) {
+					valid = false; 
+					break; }
+			}
+			if (valid)
+				setboard(row, col, newboard, plus, minus, sols, wordnum+1, findone);
+
+			}
+ 		}
+	}
+	}
+}
+
+
+int main(int argc, char* argv[]) {
+
+	std::ifstream puzzle(argv[1]);
+	std::ofstream outfile(argv[2]);
+	int col;
+	int row;
+	std::vector<std::string> plus;
+	std::vector<std::string> minus;
+	puzzle>>col>>row;
+	std::string tmp;
+	while (puzzle >> tmp) {
+		if (tmp == "+") {
+			puzzle >> tmp;
+			plus.push_back(tmp);
+		}
+		else if (tmp == "-") {
+			puzzle >> tmp;
+			minus.push_back(tmp);
+		}
+	}
+
+	std::vector<std::vector<std::vector<char> > > sols;
+	std::vector<std::vector<char> > board;
+	std::vector<char> row_vec;
+	bool findone;
+	std::string command = argv[3];
+	for (unsigned int i = 0; i < row; i++) {
+		for (unsigned int j = 0; j < col; j++) {
+			row_vec.push_back('.');
+		}
+		board.push_back(row_vec);
+	}
+
+	if (command == "all_solutions") {
+		findone = false;
+		setboard(row, col, board, plus, minus, sols, 0, findone);
+
+		outfile<<sols.size()<<" solution(s)"<<std::endl;
+		for (unsigned int i = 0; i < sols.size(); i++) {
+			printboard(row,col,sols[i], outfile);
+		}
+	}
+
+	 else if (command == "one_solution") {
+	 	findone = true;
+	 	setboard(row, col, board, plus, minus, sols, 0, findone);
+	 	for (unsigned int i = 0; i < sols.size(); i++) {
+			printboard(row,col,sols[i], outfile);
+		}
+
+	 }
+
+
+
+
+}
+/*Recursive plan
+What am I recursing?
+
+How do I start? 
+
+*** Base case, search all words and all letters = true, all words have been filled = true;
+
+
+*** To add words,
+-- Word class, point class <-don't need these, but good to check if true;
+
+word stores an array of points
+for every point in grid, test possible cases for word
+
+word locations only stored as points (vector?) points must be linear, 8 directions,
+word cannot be linear, move on to next direction (recursive function) 
+-> call to find next word if first word success
+->next word may not change letters if letters exist in spaces already
+-> don't search spaces with existing letters that aren't the starting letter
+
+should technically be storing each as a new vector
+
+
+
+My Functions
+setboard -- takes vector words, board(vector of points)
+	for space in board
+	if space empty or starting letter
+	testdirection -- row, col, Word w 
+
+
+
+
+
+testdirection -- row, col, word, board, letternum
+	test 
+
+*/
